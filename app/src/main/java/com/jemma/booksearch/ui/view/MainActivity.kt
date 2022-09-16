@@ -1,17 +1,21 @@
-package com.jemma.booksearch
+package com.jemma.booksearch.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.jemma.booksearch.R
+import com.jemma.booksearch.data.repository.BookSearchRepositoryImpl
 import com.jemma.booksearch.databinding.ActivityMainBinding
-import com.jemma.booksearch.ui.view.FavoriteFragment
-import com.jemma.booksearch.ui.view.SearchFragment
-import com.jemma.booksearch.ui.view.SettingFragment
+import com.jemma.booksearch.ui.viewmodel.BookSearchViewModel
+import com.jemma.booksearch.ui.viewmodel.BookSearchViewModelProviderFactory
 
 class MainActivity : AppCompatActivity() {
     // 1. ViewBinding 설정
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    lateinit var bookSearchViewModel: BookSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,10 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             binding.bottomNav.selectedItemId = R.id.fragment_search
         }
+
+        val bookSearchRepository = BookSearchRepositoryImpl()
+        val factory = BookSearchViewModelProviderFactory(bookSearchRepository, this)
+        bookSearchViewModel = ViewModelProvider(this, factory)[BookSearchViewModel::class.java]
     }
 
     // 6. Bottom Nav 구성
