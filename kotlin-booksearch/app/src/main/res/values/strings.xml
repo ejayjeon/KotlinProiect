@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookSearch</string>
+    <!--  3. Fragment 구분을 위해 String 지정-->
+    <string name="search">Search Books</string>
+    <string name="favorite">Favorite Books</string>
+    <string name="setting">Settings</string>
+</resources>
